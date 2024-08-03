@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
-import Land from './comp/Land'
 import viteLogo from '/vite.svg'
-import './App.css'
+import Land from './comp/Land'
+import Notecard from './comp/notecard';
+import { Loading } from './comp/Loading';
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import Notecard from './comp/notecard';
+import { getDatabase,ref,set } from 'firebase/database';
 import { firebaseConfig } from './firebaseCred';
+import './App.css'
 
 function App() {
   const firebaseApp = initializeApp(firebaseConfig);
@@ -13,6 +15,7 @@ function App() {
   const provider = new GoogleAuthProvider();
   const [noteableUser, setNoteableUser] = useState();
   const [newFormData, setNewFormData] = useState("");
+  const db = getDatabase()
 
   function handleSearchForm(event) {
     setNewFormData((prevData) => ({ ...prevData + event.target.value, }));
@@ -57,8 +60,10 @@ function App() {
   }, [auth]);
 
   console.log(noteableUser)
-  return (
+  return (  
     <>
+
+      <Loading/>
       {/* Header */}
       <div className="headCont">
         <img className='logo' src='/logo.svg' alt="Logo" />  {/*logo*/}
@@ -91,7 +96,7 @@ function App() {
             value={newFormData.title}
             className='titleInputField'
           />
-         
+
         </form>
       </div>
 
