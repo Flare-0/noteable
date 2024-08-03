@@ -5,7 +5,7 @@ import Notecard from './comp/notecard';
 import { Loading } from './comp/Loading';
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import { getDatabase, ref, set } from 'firebase/database';
+import { getDatabase, ref, set, push, onValue } from 'firebase/database';
 import { firebaseConfig } from './firebaseCred';
 import './App.css'
 
@@ -17,7 +17,7 @@ function App() {
   const [newFormData, setNewFormData] = useState("");
   const db = getDatabase()
   const [isLoading, setIsLoading] = useState(true)
-  const userNoteRef = ref(db, )
+  const [notes, setNotes] = useState([]);
 
 
 
@@ -63,13 +63,30 @@ function App() {
     return () => unsubscribe();
   }, [auth]);
 
-  function addNote(userId, note) {
-    const noteRef = ref('users/' + userId).push();
-    noteRef.set(note);
+  const addNote=() => {
+    if (noteableUser) {
+      const noteRef = push(ref(db, 'users/' + noteableUser.uid));
+      const emptyNote = { uid: noteableUser.uid, title: '', content: '' };
+      set(noteRef, emptyNote);
+      setNotes((prevNotes) => [...prevNotes, emptyNote]);
+    }
   }
 
-
+  function fetchNotes(userId) {
+    const notesRef = ref(db, 'users/' + userId);
+    onValue(notesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const notesArray = Object.values(data);
+        setNotes(notesArray);
+      } else {
+        setNotes([]);
+      }
+    });
+  }
   console.log(noteableUser)
+
+
   return (
     <div onLoad={setTimeout(() => { setIsLoading(false) }, 2000)}>
 
@@ -111,15 +128,16 @@ function App() {
       </div>
 
 
-      <div className="addNewNote" onClick={addNote(noteableUser.uid, {titile})}><img src='/public/plusicon.svg' /></div>
+      <div className="addNewNote" onClick={addNote( {title:"Title", content:"content"})}><img src='/public/plusicon.svg' /></div>
 
       <div className="center">
         <div className="allnoteCardCont">
-          <Notecard title="Helo" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum." />
-          <Notecard title="Helo" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum." />
-        </div>
+        {notes.map((note, index) => (
+                <Notecard key={index} title={note.title} content={note.content} />
+              ))}
+          </div>
       </div>
-      
+
     </div>
   );
 }
