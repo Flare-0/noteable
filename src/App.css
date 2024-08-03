@@ -156,9 +156,9 @@ body {
     width: 75vw;
     padding: 2vw;
     border-radius: 18px 18px 0px 0px;
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
-    justify-items: center; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
 }
 
 .center {
@@ -178,14 +178,40 @@ body {
     margin: 1vw;
     transition: 400ms;
 }
-.notecardTitle{
+
+.notecardTitle {
     font-size: 2.5rem;
     margin-bottom: 1vw;
 }
-.notecardContentTxt{
+
+.notecardContentTxt {
     color: #adadad;
 }
-.notecardCont:hover{
+
+.notecardCont:hover {
     border: 2px solid #F95200;
     background-color: transparent;
+}
+
+.newNoteForm {
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    border-radius: 10px;
+}
+
+input{
+    color: white;
+    background-color: #0c0c0c;
+    border: none;
+    border: none;
+    outline: none; /* Removes the default outline when focused */
+}
+
+.titleInputField,.contentInputField{
+    height: 10vh;
+}
+
+.titleInputField{
+    
 }

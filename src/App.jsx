@@ -12,7 +12,13 @@ function App() {
   const auth = getAuth(firebaseApp);
   const provider = new GoogleAuthProvider();
   const [noteableUser, setNoteableUser] = useState();
+  const [newFormData, setNewFormData] = useState({ title: 'e', Content: null });
 
+  function handleChangeTitle(event) {
+    setNewFormData((prevData) => ({...prevData,title: event.target.value,}));}
+
+  function handleChangeContent(event) {
+    setNewFormData((prevData) => ({ ...prevData, Content: event.target.value, }));}
 
   const handleSignIn = () => {
     signInWithPopup(auth, provider)
@@ -31,6 +37,15 @@ function App() {
         console.error(error);
       });
   };
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        console.log('User signed out.');
+      })
+      .catch((error) => {
+        console.error('Sign out error', error);
+      });
+  };
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -43,18 +58,6 @@ function App() {
     // Cleanup subscription on unmount
     return () => unsubscribe();
   }, [auth]);
-  const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        console.log('User signed out.');
-      })
-      .catch((error) => {
-        console.error('Sign out error', error);
-      });
-  };
-
-
-
 
   console.log(noteableUser)
   return (
@@ -69,10 +72,10 @@ function App() {
 
 
         {noteableUser && <div className="userProfile">{/*userinfo btn*/}
-          <img className='userProfileImg' src={noteableUser.photoURL}/>
-            <p className='userProfileName' >{noteableUser.displayName.split(" ")[0]}</p>
-            <p className='userProfileEmail' >{noteableUser.email}</p>
-            <p className='userProfileSignout' onClick={handleSignOut} >Sign Out</p>
+          <img className='userProfileImg' src={noteableUser.photoURL} />
+          <p className='userProfileName' >{noteableUser.displayName.split(" ")[0]}</p>
+          <p className='userProfileEmail' >{noteableUser.email}</p>
+          <p className='userProfileSignout' onClick={handleSignOut} >Sign Out</p>
         </div>}
 
 
@@ -80,17 +83,34 @@ function App() {
       </div>
 
       {noteableUser == null && <Land />}
+      <div className="center">
+      <form className='newNoteForm'>
+        <input
+          type="text"
+          placeholder="Title"
+          onChange={handleChangeTitle}
+          name="firstName"
+          value={newFormData.title}
+          className='contentInputField'
+        />
+        <input
+          type="text"
+          placeholder="Content"
+          onChange={handleChangeContent}
+          name="firstName"
+          value={newFormData.Content}
+          className='titleInputField'
+        />
 
-<div className="center">
-    <div className="allnoteCardCont">
+      </form>
+      </div>
+      <div className="center">
+        <div className="allnoteCardCont">
+          <Notecard title="Helo" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum." />
+          <Notecard title="Helo" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum." />
+        </div>
 
-     
-      <Notecard title="Helo" content ="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum."/>
-      <Notecard title="Helo" content ="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum."/>
-     
-    </div>
-    
-    </div>
+      </div>
 
 
     </>
