@@ -5,7 +5,7 @@ import Notecard from './comp/notecard';
 import { Loading } from './comp/Loading';
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import { getDatabase,ref,set } from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
 import { firebaseConfig } from './firebaseCred';
 import './App.css'
 
@@ -16,7 +16,11 @@ function App() {
   const [noteableUser, setNoteableUser] = useState();
   const [newFormData, setNewFormData] = useState("");
   const db = getDatabase()
-  const [isLoading , setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
+  const userNoteRef = ref(db, )
+
+
+
   function handleSearchForm(event) {
     setNewFormData((prevData) => ({ ...prevData + event.target.value, }));
   }
@@ -59,11 +63,17 @@ function App() {
     return () => unsubscribe();
   }, [auth]);
 
-  console.log(noteableUser)
-  return (  
-    <div onLoad={setTimeout(()=>{setIsLoading(false)},2000)}>
+  function addNote(userId, note) {
+    const noteRef = ref('users/' + userId).push();
+    noteRef.set(note);
+  }
 
-      {isLoading && <Loading/>}
+
+  console.log(noteableUser)
+  return (
+    <div onLoad={setTimeout(() => { setIsLoading(false) }, 2000)}>
+
+      {isLoading && <Loading />}
       {/* Header */}
       <div className="headCont">
         <img className='logo' src='/logo.svg' alt="Logo" />  {/*logo*/}
@@ -101,16 +111,15 @@ function App() {
       </div>
 
 
+      <div className="addNewNote" onClick={addNote(noteableUser.uid, {titile})}><img src='/public/plusicon.svg' /></div>
 
       <div className="center">
         <div className="allnoteCardCont">
           <Notecard title="Helo" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum." />
           <Notecard title="Helo" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum." />
         </div>
-
       </div>
-
-
+      
     </div>
   );
 }

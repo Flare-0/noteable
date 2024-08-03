@@ -299,3 +299,20 @@ iframe{
 .loadingLogo{
     width: 10vw;
 }
+
+.addNewNote{
+    height: 5vw;
+    width:5vw;
+    border-radius:90px ;
+    background-color: #ff5a5a;
+    position: absolute;
+    margin: 4vw;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 400ms;
+}
+.addNewNote:hover{
+    background-color: #F95200;}
