@@ -12,14 +12,11 @@ function App() {
   const auth = getAuth(firebaseApp);
   const provider = new GoogleAuthProvider();
   const [noteableUser, setNoteableUser] = useState();
-  const [newFormData, setNewFormData] = useState({ title: 'e', Content: null });
+  const [newFormData, setNewFormData] = useState("");
 
-  function handleChangeTitle(event) {
-    setNewFormData((prevData) => ({...prevData,title: event.target.value,}));}
-
-  function handleChangeContent(event) {
-    setNewFormData((prevData) => ({ ...prevData, Content: event.target.value, }));}
-
+  function handleSearchForm(event) {
+    setNewFormData((prevData) => ({ ...prevData + event.target.value, }));
+  }
   const handleSignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -82,28 +79,24 @@ function App() {
 
       </div>
 
+
       {noteableUser == null && <Land />}
       <div className="center">
-      <form className='newNoteForm'>
-        <input
-          type="text"
-          placeholder="Title"
-          onChange={handleChangeTitle}
-          name="firstName"
-          value={newFormData.title}
-          className='contentInputField'
-        />
-        <input
-          type="text"
-          placeholder="Content"
-          onChange={handleChangeContent}
-          name="firstName"
-          value={newFormData.Content}
-          className='titleInputField'
-        />
-
-      </form>
+        <form className='newNoteForm'>
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={handleSearchForm}
+            name="firstName"
+            value={newFormData.title}
+            className='titleInputField'
+          />
+         
+        </form>
       </div>
+
+
+
       <div className="center">
         <div className="allnoteCardCont">
           <Notecard title="Helo" content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta eius corrupti illum maiores labore perspiciatis ipsum accusantium minus blanditiis cumque dolorum dignissimos quaerat voluptates molestiae, explicabo in, laboriosam exercitationem cum." />

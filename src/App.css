@@ -6,15 +6,12 @@
     margin: 0;
     color: aliceblue;
 }
-
 body {
     background: #070707;
 }
-
 .landCont {
     overflow: hidden;
 }
-
 .landWave {
     width: 100;
     position: absolute;
@@ -25,11 +22,9 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 .logo {
     width: 8vw;
 }
-
 .loginBtn {
     width: 13.5vw;
     height: 4vw;
@@ -45,16 +40,13 @@ body {
     margin-right: 3vw;
     transition: 800ms;
 }
-
 .loginBtn:hover {
     background-color: transparent;
     border: 2px dashed #ff5a5a;
 }
-
 .loginText {
     font-family: "Inconsolata", monospace;
 }
-
 .headCont {
     display: flex;
     flex-direction: row;
@@ -62,7 +54,6 @@ body {
     padding: 3vw;
     overflow: hidden;
 }
-
 .flexCenterHeroText {
     display: flex;
     align-items: center;
@@ -73,7 +64,6 @@ body {
     position: relative;
     font-family: "Inconsolata", monospace;
 }
-
 .herotextSimple {
     height: auto;
     width: auto;
@@ -87,12 +77,10 @@ body {
     border-radius: 48px;
     transition: 600ms;
 }
-
 .herotextSimple:hover {
     color: #ffffff;
     background-color: #ff5a5a;
 }
-
 .userProfile {
     width: 3.5vw;
     height: 3.5vw;
@@ -109,48 +97,39 @@ body {
     padding: .4vw;
     overflow: hidden;
 }
-
 .userProfile:hover {
     width: max-content;
     background-color: #F95200;
 }
-
 .userProfileImg {
     border-radius: 50%;
     height: 3.5vw;
     border: 2px #fff;
 
 }
-
 .userProfileName {
     margin: 1vw;
     font-weight: 300;
     opacity: 0;
 }
-
 .userProfileEmail,
 .userProfileSignout {
     opacity: 0;
     margin: 1vw;
 }
-
 .userProfile:hover>.userProfileEmail {
     opacity: 100;
 }
-
 .userProfile:hover>.userProfileName {
     opacity: 100;
 }
-
 .userProfile:hover>.userProfileSignout {
     opacity: 100;
     text-decoration: underline;
 }
-
 .userProfileSignout:hover {
     color: blue;
 }
-
 .allnoteCardCont {
     min-height: 100vh;
     width: 75vw;
@@ -160,7 +139,6 @@ body {
     grid-template-columns: repeat(3, 1fr);
     justify-items: center;
 }
-
 .center {
     display: flex;
     align-items: center;
@@ -198,20 +176,18 @@ body {
     flex-direction: column;
     width: 40vw;
     border-radius: 10px;
+    border: 2px solid #F95200;
+    padding: 1vw;
 }
-
-input{
-    color: white;
-    background-color: #0c0c0c;
-    border: none;
-    border: none;
-    outline: none; /* Removes the default outline when focused */
-}
-
 .titleInputField,.contentInputField{
-    height: 10vh;
+    height: 4vh;
+    background-color: transparent;
+    outline: none;
+    border:none;
+    border-radius: 3px;
 }
-
-.titleInputField{
-    
+.contentInputField{
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
 }
