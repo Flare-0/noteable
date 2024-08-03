@@ -225,4 +225,77 @@ body {
     background-color: #070707;
     position: fixed;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+iframe{
+    height: 30vw;
+    width:35vw;
+    border: none;
+}
+.flexCol{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* HTML: <div class="loader"></div> */
+.spinny {
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 4px solid #ffffff;
+    margin: 2.5vw;
+    animation:
+      l20-1 0.8s infinite linear alternate,
+      l20-2 1.6s infinite linear;
+  }
+  @keyframes l20-1{
+     0%    {clip-path: polygon(50% 50%,0       0,  50%   0%,  50%    0%, 50%    0%, 50%    0%, 50%    0% )}
+     12.5% {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100%   0%, 100%   0%, 100%   0% )}
+     25%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 100% 100%, 100% 100% )}
+     50%   {clip-path: polygon(50% 50%,0       0,  50%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+     62.5% {clip-path: polygon(50% 50%,100%    0, 100%   0%,  100%   0%, 100% 100%, 50%  100%, 0%   100% )}
+     75%   {clip-path: polygon(50% 50%,100% 100%, 100% 100%,  100% 100%, 100% 100%, 50%  100%, 0%   100% )}
+     100%  {clip-path: polygon(50% 50%,50%  100%,  50% 100%,   50% 100%,  50% 100%, 50%  100%, 0%   100% )}
+  }
+  @keyframes l20-2{ 
+    0%    {transform:scaleY(1)  rotate(0deg)}
+    49.99%{transform:scaleY(1)  rotate(135deg)}
+    50%   {transform:scaleY(-1) rotate(0deg)}
+    100%  {transform:scaleY(-1) rotate(-135deg)}
+  }
+.pBarCont{
+    height: 5px;
+    width: 18vw;
+    background-color: #0c0c0c;
+    border-radius: 50px;
+}
+.pbar{
+    height: 5px;
+    width: 0vw;
+    background-color: white;
+    animation: pbar 60000ms;
+}
+
+@keyframes pbar {
+    0%{
+        width: 0vw;
+    }
+    20%{
+        width: 6vw;
+    }
+    75%{
+        width: 14vw;
+    }
+    100%{
+        width: 14vw;
+    }
+    
+}
+
+.loadingLogo{
+    width: 10vw;
 }

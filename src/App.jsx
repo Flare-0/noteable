@@ -16,7 +16,7 @@ function App() {
   const [noteableUser, setNoteableUser] = useState();
   const [newFormData, setNewFormData] = useState("");
   const db = getDatabase()
-
+  const [isLoading , setIsLoading] = useState(true)
   function handleSearchForm(event) {
     setNewFormData((prevData) => ({ ...prevData + event.target.value, }));
   }
@@ -61,9 +61,9 @@ function App() {
 
   console.log(noteableUser)
   return (  
-    <>
+    <div onLoad={setTimeout(()=>{setIsLoading(false)},2000)}>
 
-      <Loading/>
+      {isLoading && <Loading/>}
       {/* Header */}
       <div className="headCont">
         <img className='logo' src='/logo.svg' alt="Logo" />  {/*logo*/}
@@ -111,7 +111,7 @@ function App() {
       </div>
 
 
-    </>
+    </div>
   );
 }
 export default App;
