@@ -5,7 +5,7 @@ import Notecard from './comp/notecard';
 import { Loading } from './comp/Loading';
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import { getDatabase, ref, set, push, onValue } from 'firebase/database';
+import { getDatabase, ref, set,remove, push, onValue } from 'firebase/database';
 import { firebaseConfig } from './firebaseCred';
 import './App.css';
 
@@ -80,7 +80,7 @@ function App() {
     onValue(notesRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        const notesArray = Object.values(data);
+        const notesArray = Object.entries(data).map(([id, note]) => ({ id, ...note }));
         setNotes(notesArray);
       } else {
         setNotes([]);
@@ -88,11 +88,27 @@ function App() {
     });
   }
 
+
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 2000);
   }, []);
+
+
+  function deleteNote(noteId) {
+    if (noteableUser) {
+      const noteRef = ref(db, `users/${noteableUser.uid}/${noteId}`);
+      remove(noteRef)
+        .then(() => {
+          console.log('Note deleted');
+        })
+        .catch((error) => {
+          console.error('Error deleting note:', error);
+        });
+    }
+  }
+
 
   return (
     <div>
@@ -128,8 +144,13 @@ function App() {
 
       <div className="center">
         <div className="allnoteCardCont">
-          {notes.map((note, index) => (
-            <Notecard key={index} title={note.title} content={note.content} />
+          {notes.map((note) => (
+            <Notecard
+              key={note.id}
+              title={note.title}
+              content={note.content}
+              onDelete={() => deleteNote(note.id)}
+            />
           ))}
         </div>
       </div>

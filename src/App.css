@@ -305,7 +305,7 @@ iframe{
     width:5vw;
     border-radius:90px ;
     background-color: #ff5a5a;
-    position: absolute;
+    position: fixed;
     margin: 4vw;
     right: 0;
     bottom: 0;
@@ -313,6 +313,28 @@ iframe{
     align-items: center;
     justify-content: center;
     transition: 400ms;
+    
 }
 .addNewNote:hover{
     background-color: #F95200;}
+
+.detBtn{
+    width:35px;
+    height: 35px;
+    border-radius: 20px;
+    background-color: #F95200;
+    position: relative;
+    bottom: 0;
+    display: flex;align-items: center;justify-content: center;
+    opacity: 10%;
+    transition: 500ms;
+  
+}
+.detBtn:hover{
+    opacity: 100%;
+}
+.rightBottom{
+    position: absolute;
+  right: 10px; /* Adjust as needed */
+  bottom: 10px; /* Adjust as needed */
+}
