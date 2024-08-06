@@ -146,7 +146,10 @@ function App() {
 
   return (
     <div>
-     {currentlySelectedNote != "" && <Texteditor/> }
+     {currentlySelectedNote != "" && <Texteditor 
+     closeEditor={()=>{setCurrentlySelectedNote("")}}
+     note ={currentlySelectedNote}
+     /> }
       {isLoading && <Loading />}
       <div className="headCont">
         <img className='logo' src='/logo.svg' alt="Logo" />
@@ -199,7 +202,8 @@ function App() {
               title={note.title}
               content={note.content}
               onDelete={() => deleteNote(note.id)}
-              onclick={() => setCurrentlySelectedNote(note.id)} //onclick != onClick so use onclick(its a props)
+              onclick={() => setCurrentlySelectedNote(note)} //onclick != onClick so use onclick(its a props)
+              
             />
           ))}
         </div>

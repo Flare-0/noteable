@@ -421,10 +421,39 @@ h1 {
 
 .textEditorMainCont{
     width: 85vw;
-    height: 90vh;
-    background-color: #222222;
+    height: max-content;
+    background-color: #0c0c0c;
     z-index: 999;
     position: absolute;
     top:0;
     margin-top:16px;
+    padding:48px;
+}
+
+.closeEditor{
+    rotate: 45deg;
+    height: 32px;
+    position: relative;transition: 400ms;
+}.closeEditor:hover{ background-color:#F95200; border-radius: 50px;}
+
+.editorInputTitle{
+   font-size: xx-large;
+    height: 10vh;
+}
+
+.editorInputContent,.editorInputTitle{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+    color: white;
+}
+
+.editorInputContent::placeholder,.editorInputTitle::placeholder{
+    color:whitesmoke;
+    font-size:medium;
+}
+.editorInputContent{
+    height: 70vh;
+    font-size: large;
 }
