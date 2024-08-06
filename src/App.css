@@ -149,6 +149,7 @@ body {
 
 .userProfileSignout:hover {
     color: blue;
+    cursor: pointer;
 }
 
 .allnoteCardCont {
@@ -177,6 +178,7 @@ body {
     overflow: hidden;
     margin: 1vw;
     transition: 400ms;
+    position: relative;
 }
 
 .notecardTitle {
@@ -192,31 +194,34 @@ body {
     border: 2px solid #F95200;
     background-color: transparent;
 }
-
-.newNoteForm {
+.searchNoteForm {
     display: flex;
     flex-direction: column;
     width: 40vw;
-    border-radius: 10px;
+    border-radius: 40px;
     border: 2px solid #F95200;
     padding: 1vw;
+    position: relative;
+    bottom: 20px;
 }
-
-.titleInputField,
-.contentInputField {
+.SeearchInputField {
     height: 4vh;
     background-color: transparent;
     outline: none;
     border: none;
-    border-radius: 3px;
-}
-
-.contentInputField {
+    border-radius:10px;
     width: 100%;
     box-sizing: border-box;
     resize: none;
+    position: relative;
+    position: relative;
+    left: 15px;
 }
-
+.SeearchInputField::placeholder{
+    color: white;
+    font-size: medium;
+  
+}
 
 .mainLoadingScreen{
     height: 100vh;
@@ -229,11 +234,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-iframe{
-    height: 30vw;
-    width:35vw;
-    border: none;
-}
 .flexCol{
     display: flex;
     flex-direction: column;
@@ -241,7 +241,6 @@ iframe{
     gap: 10px;
 }
 
-/* HTML: <div class="loader"></div> */
 .spinny {
     width: 30px;
     aspect-ratio: 1;
@@ -277,9 +276,8 @@ iframe{
     height: 5px;
     width: 0vw;
     background-color: white;
-    animation: pbar 60000ms;
+    animation: pbar infinite;
 }
-
 @keyframes pbar {
     0%{
         width: 0vw;
@@ -301,8 +299,8 @@ iframe{
 }
 
 .addNewNote{
-    height: 5vw;
-    width:5vw;
+    height: 60px;
+    width:60px;
     border-radius:90px ;
     background-color: #ff5a5a;
     position: fixed;
@@ -325,16 +323,22 @@ iframe{
     background-color: #F95200;
     position: relative;
     bottom: 0;
-    display: flex;align-items: center;justify-content: center;
+    display: flex;flex-direction: column;
+    align-items: center;justify-content: center;
     opacity: 10%;
     transition: 500ms;
-  
+  margin: 8px;
 }
 .detBtn:hover{
     opacity: 100%;
 }
 .rightBottom{
     position: absolute;
-  right: 10px; /* Adjust as needed */
-  bottom: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    bottom: 10px; /* Adjust as needed */
+    display: flex;
+}
+
+h1{
+    margin: 14px;
 }
