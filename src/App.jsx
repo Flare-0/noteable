@@ -184,7 +184,7 @@ function App() {
           <p className='userProfileEmail'>{noteableUser.email}</p>
         </div>
         <div className="headerRound">
-        <img src="/move_item_24dp_000_FILL0_wght400_GRAD0_opsz24.svg" alt="logout" onClick={handleSignOut} />
+        <img src="https://raw.githubusercontent.com/Flare-0/noteable/main/public/logout.svg" alt="logout" onClick={handleSignOut} />
 
         </div>
       </div>
@@ -234,6 +234,7 @@ function App() {
       </div>
     </>
   )}
+  <div className="footer"></div>
 </div>
 
   );

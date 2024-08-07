@@ -19,10 +19,10 @@ export default function Notecard(props) {
 
       <div className="rightBottom">
         <div onClick={props.onclick} className="detBtn">
-          <img src='/public/pencil.svg' alt="Edit" />
+          <img src='https://raw.githubusercontent.com/Flare-0/noteable/main/public/pencil.svg' alt="Edit" />
         </div>
         <div onClick={handleDelete} className="detBtn">
-          <img src='/public/trashcan.svg' alt="Delete" />
+          <img src='https://raw.githubusercontent.com/Flare-0/noteable/main/public/trashcan.svg' alt="Delete" />
         </div>
       </div>
     </div>

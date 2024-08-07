@@ -42,7 +42,7 @@ export const Texteditor = (props) => {
   return (
     <div className="center">
       <div className='textEditorMainCont'>
-        <img src="/public/plusicon.svg" onClick={props.closeEditor} className='closeEditor' />
+        <img src="https://raw.githubusercontent.com/Flare-0/noteable/main/public/plusicon.svg" onClick={props.closeEditor} className='closeEditor' />
 
         <form action="">
           <input type="text" onChange={handleTitleForm} className='editorInputTitle' value={editorData.title} placeholder='Title' />

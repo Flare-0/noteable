@@ -4,7 +4,7 @@ export default function Land() {
   return (
     <>
       <div className="landCont">
-        <img src="../../public/wave.svg" className='landWave' />
+        <img src="https://raw.githubusercontent.com/Flare-0/noteable/main/public/wave.svg" className='landWave' />
       </div>
       <div className="flexCenterHeroText">
       <p>Notetaking 
