@@ -1,22 +1,30 @@
 import React from 'react';
-import Markdown from 'react-markdown'
-export default function Notecard(props) {
-  return (
-    <div onClick={props.onclick} className='notecardCont'>
 
+export default function Notecard(props) {
+  const handleDelete = () => {
+    let userResponse = window.confirm("Do you want to proceed?");
+
+    if (userResponse) {
+      props.onDelete();
+    }
+  }
+
+  return (
+    <div className='notecardCont'>
       <p className='notecardTitle'>{props.title.length > 8 ? props.title.slice(0, 8) + '...' : props.title}</p>
 
-        <Markdown className='notecardContentTxt' >
+      <p className='notecardContentTxt'>
         {props.content.length > 180 ? props.content.slice(0, 180) + '...' : props.content}
-        </Markdown>
-    
+      </p>
 
       <div className="rightBottom">
-        <div onDoubleClick={props.onDelete} className="detBtn">
+        <div onClick={props.onclick} className="detBtn">
+          <img src='/public/pencil.svg' alt="Edit" />
+        </div>
+        <div onClick={handleDelete} className="detBtn">
           <img src='/public/trashcan.svg' alt="Delete" />
         </div>
       </div>
-
     </div>
   );
 }

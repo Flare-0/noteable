@@ -1,31 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react';
+import debounce from 'lodash/debounce';
 
 export const Texteditor = (props) => {
-
   useEffect(() => {
     // Function to handle the keydown event
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
-        props.closeEditor()
+        props.closeEditor();
       }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
-  const [editorData, setEditorData] = useState({ title: props.note.title, content: props.note.content })
-  const [isSaved,setIsSaved] = useState(true)
+  }, [props]);
+
+  const [editorData, setEditorData] = useState({ title: props.note.title, content: props.note.content });
+  const [isSaved, setIsSaved] = useState(true);
+
+  const debouncedHandleEdit = useCallback(
+    debounce((uid, title, content) => {
+      props.handleEdit(uid, title, content);
+    }, 500),
+    [props]
+  );
+
   const handleTitleForm = (event) => {
     const { value } = event.target;
     setEditorData((prev) => ({ ...prev, title: value }));
-    setIsSaved(false)
+    setIsSaved(false);
+    debouncedHandleEdit(props.note.id, value, editorData.content);
   };
 
   const handleContentForm = (event) => {
     const { value } = event.target;
     setEditorData((prev) => ({ ...prev, content: value }));
-    setIsSaved(false)
+    setIsSaved(false);
+    debouncedHandleEdit(props.note.id, editorData.title, value);
   };
 
   return (
@@ -35,10 +46,10 @@ export const Texteditor = (props) => {
 
         <form action="">
           <input type="text" onChange={handleTitleForm} className='editorInputTitle' value={editorData.title} placeholder='Title' />
-          <textarea type="text" className='editorInputContent' value={editorData.content} placeholder='Write a note'> </textarea>
+          <textarea type="text" onChange={handleContentForm} className='editorInputContent' value={editorData.content} placeholder='Write a note'> </textarea>
         </form>
 
       </div>
     </div>
-  )
-}
+  );
+};

@@ -27,7 +27,8 @@ body {
 }
 
 .logo {
-    width: 8vw;
+    width: 100px;
+    margin: 16px;
 }
 
 .loginBtn {
@@ -92,19 +93,14 @@ body {
     background-color: #ff5a5a;
 }
 .userProfile {
-    width: 3.5vw;
-    height: 3.5vw;
+    width: 45.5px;
+    height: 45.5px;
     font-size: 1.5rem;
-
     border-radius: 100px;
     display: flex;
     align-items: center;
-    position: absolute;
-    right: 0px;
-    margin-right: 3vw;
-    margin-top: 1px;
-    transition: 800ms;
     padding: .4vw;
+    transition: 800ms;
     overflow: hidden;
 }
 .userProfile:hover {
@@ -113,7 +109,7 @@ body {
 }
 .userProfileImg {
     border-radius: 50%;
-    height: 3.5vw;
+    height: 48px;
     border: 2px #fff;
 
 }
@@ -156,12 +152,12 @@ body {
     justify-content: center;
 }
 .notecardCont {
-    height: 16vw;
-    width: 16vw;
+    height: 216px;
+    width: 216px;
     border-radius: 10px;
     border: 2px solid #ffe5d0;
     background-color: #0c0c0c;
-    padding: 3vw;
+    padding: 40px;
     overflow: hidden;
     margin: 1vw;
     transition: 400ms;
@@ -171,6 +167,7 @@ body {
     font-size: 2.5rem;
     margin-bottom: 1vw;
     color: rgb(229, 243, 255);
+    font-weight: 600;
 }
 .notecardContentTxt {
     color: #adadad;
@@ -192,7 +189,6 @@ body {
     position: relative;
     bottom: 20px;
 }
-
 .SeearchInputField {
     height: 4vh;
     background-color: transparent;
@@ -206,10 +202,10 @@ body {
     position: relative;
     left: 15px;
 }
-
 .SeearchInputField::placeholder {
     color: white;
     font-size: medium;
+    font-weight: 550;
 
 }
 form {
@@ -224,7 +220,6 @@ form {
     padding: 14px;
     position: relative;
     bottom: 20px;
-    background-color: #0c0c0c;
 }
 .contentInputForm,
 .titleInputForm {
@@ -240,13 +235,12 @@ form {
     color: rgb(204, 204, 204);
     font-size: larger;}
 .titleInputForm::placeholder{font-size: x-large;}
-
 .titleInputForm{
     height: 8vh;
     color: rgb(229, 243, 255);
     font-size: x-large;
+    font-weight: 750;
 }
-
 .contentInputForm{
     resize: vertical;
     font-size: medium;
@@ -257,8 +251,8 @@ form {
 .addnote{
     display: flex; align-items: center; justify-content: center; flex-direction: row;
     padding: 4px;
-    width: 5.5vw;
-    height: 2.5vw;
+    width: 71.5px;
+    height: 30px;
     background-color: #F95200;
     border-radius: 100px;
     position: relative;
@@ -456,4 +450,48 @@ h1 {
 .editorInputContent{
     height: 70vh;
     font-size: large;
+    resize: none;
 }
+.flexRow{
+    display: flex;
+    flex-direction: row;    
+    align-items: center;
+    position: absolute;
+    right: 0px;
+    margin-right: 3vw;
+    margin-top: 1px;
+}
+
+.headerRound{
+    width: 45.5px;
+    height: 45.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F95200;
+    border-radius: 35px;
+    margin-left: 1vw;
+
+
+}
+@media only screen and (max-width: 650px) {
+   .allnoteCardCont{
+    display: flex;
+    flex-direction: column;
+   }
+   .newNoteForm{
+    width: 260px;
+   }
+   .searchNoteForm{
+    width: 260px;
+   }
+   .userProfileEmail{
+    visibility: hidden;
+   }
+   .userProfile:hover{
+    width: 45.5px;
+   }
+  
+}
+
+  

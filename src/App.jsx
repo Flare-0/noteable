@@ -7,7 +7,6 @@ import { Loading } from './comp/Loading';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { getDatabase, ref, set, remove, push, onValue } from 'firebase/database';
-import Markdown from 'react-markdown';
 import { firebaseConfig } from './firebaseCred';
 import './App.css';
 import './scrollbar.css';
@@ -55,14 +54,18 @@ function App() {
   };
 
   const handleSignOut = () => {
-    signOut(auth)
-      .then(() => {
-        setNoteableUser(null);
-        setNotes([]);
-      })
-      .catch((error) => {
-        console.error('Sign out error', error);
-      });
+    let userResponse = window.confirm("Are you sure you want to sign out?");
+  
+    if (userResponse) {
+      signOut(auth)
+        .then(() => {
+          setNoteableUser(null);
+          setNotes([]);
+        })
+        .catch((error) => {
+          console.error('Sign out error', error);
+        });
+    }
   };
   
   useEffect(() => {
@@ -87,13 +90,27 @@ function App() {
 
   const addNote = () => {
     if (noteableUser) {
-      const noteRef = push(ref(db, 'users/' + noteableUser.uid));
-      set(noteRef, {
-        uid: noteableUser.uid,
-        title: newFormData.title,
-        content: newFormData.content
+      if(newFormData.content || newFormData.title){
+        const noteRef = push(ref(db, 'users/' + noteableUser.uid));
+        const newNoteId = noteRef.key;
+        set(noteRef, {
+          uid: newNoteId,
+          title: newFormData.title,
+          content: newFormData.content
+        });
+        setNewFormData({ title: "", content: "" });
+      }
+    }
+  };
+  
+  const editNote = async (noteId, title, content) => {
+    if (noteableUser) {
+      const noteRef = ref(db, `users/${noteableUser.uid}/${noteId}`);
+      await set(noteRef, {
+        uid: noteId,
+        title: title,
+        content: content
       });
-      setNewFormData({ title: "", content: "" });
     }
   };
 
@@ -145,30 +162,39 @@ function App() {
   }, [filteredNotes, searchFormData]);
 
   return (
-    <div>
-     {currentlySelectedNote != "" && <Texteditor 
-     closeEditor={()=>{setCurrentlySelectedNote("")}}
-     note ={currentlySelectedNote}
-     /> }
-      {isLoading && <Loading />}
-      <div className="headCont">
-        <img className='logo' src='/logo.svg' alt="Logo" />
-        {!noteableUser ? (
-          <div onClick={handleSignIn} className="loginBtn">
-            <p className='loginText'>Login</p>
-          </div>
-        ) : (
-          <div className="userProfile">
-            <img className='userProfileImg' src={noteableUser.photoURL} alt="User Profile" />
-            <p className='userProfileName'>{noteableUser.displayName.split(" ")[0]}</p>
-            <p className='userProfileEmail'>{noteableUser.email}</p>
-            <p className='userProfileSignout' onClick={handleSignOut}>Sign Out</p>
-          </div>
-        )}
+<div>
+  {currentlySelectedNote !== "" && (
+    <Texteditor 
+      closeEditor={() => { setCurrentlySelectedNote("") }}
+      note={currentlySelectedNote}
+      handleEdit={editNote}
+    />
+  )}
+  {isLoading && <Loading />}
+  <div className="headCont">
+    <img className='logo' src='/logo.svg' alt="Logo" />
+    {!noteableUser ? (
+      <div onClick={handleSignIn} className="loginBtn">
+        <p className='loginText'>Login</p>
       </div>
+    ) : (
+      <div className="flexRow">
+        <div className="userProfile">
+          <img className='userProfileImg' src={noteableUser.photoURL} alt="User Profile" />
+          <p className='userProfileName'>{noteableUser.displayName.split(" ")[0]}</p>
+          <p className='userProfileEmail'>{noteableUser.email}</p>
+        </div>
+        <div className="headerRound">
+          <img src='/logout.svg' className='userProfileSignout' alt="logout" onClick={handleSignOut} />
+        </div>
+      </div>
+    )}
+  </div>
 
-      {!noteableUser && <Land />}
-
+  {!noteableUser ? (
+    <Land />
+  ) : (
+    <>
       <div className="center">
         <form className='searchNoteForm'>
           <input
@@ -187,7 +213,6 @@ function App() {
           <div className="center">
             <div onClick={addNote} className="addnote"> Add</div>
           </div>
-          <Markdown>{newFormData.content}</Markdown>
         </form>
       </div>
 
@@ -203,12 +228,14 @@ function App() {
               content={note.content}
               onDelete={() => deleteNote(note.id)}
               onclick={() => setCurrentlySelectedNote(note)} //onclick != onClick so use onclick(its a props)
-              
             />
           ))}
         </div>
       </div>
-    </div>
+    </>
+  )}
+</div>
+
   );
 }
 
