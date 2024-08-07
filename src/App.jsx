@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import viteLogo from '/vite.svg';
 import Land from './comp/Land';
 import Notecard from './comp/notecard';
 import { Texteditor } from './comp/Texteditor';
@@ -172,7 +171,7 @@ function App() {
   )}
   {isLoading && <Loading />}
   <div className="headCont">
-    <img className='logo' src='/logo.svg' alt="Logo" />
+    <img className='logo' src='https://raw.githubusercontent.com/Flare-0/noteable/main/public/logo.svg' alt="Logo" />
     {!noteableUser ? (
       <div onClick={handleSignIn} className="loginBtn">
         <p className='loginText'>Login</p>
