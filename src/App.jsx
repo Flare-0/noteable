@@ -185,7 +185,8 @@ function App() {
           <p className='userProfileEmail'>{noteableUser.email}</p>
         </div>
         <div className="headerRound">
-          <img src='/logout.svg' className='userProfileSignout' alt="logout" onClick={handleSignOut} />
+        <img src="/move_item_24dp_000_FILL0_wght400_GRAD0_opsz24.svg" alt="logout" onClick={handleSignOut} />
+
         </div>
       </div>
     )}

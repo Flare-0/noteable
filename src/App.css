@@ -422,6 +422,8 @@ h1 {
     top:0;
     margin-top:16px;
     padding:48px;
+    border: 2px solid #ff5a5a;
+    border-radius: 12px;
 }
 
 .closeEditor{
@@ -442,9 +444,11 @@ h1 {
     width: 100%;
     color: white;
 }
+.editorInputTitle::placeholder{
+    font-size: xx-large;
+}
+.editorInputContent::placeholder{
 
-.editorInputContent::placeholder,.editorInputTitle::placeholder{
-    color:whitesmoke;
     font-size:medium;
 }
 .editorInputContent{
